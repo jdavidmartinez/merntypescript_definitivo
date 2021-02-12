@@ -18,10 +18,12 @@ ReactDOM.render(
 
     <Navbar />
 
+      <div className="container p-4">
       <Switch>
         <Route exact path="/" component ={VideoList}/>
         <Route path="/new-video" component ={VideoForm}/>
       </Switch>
+      </div>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
@@ -30,5 +32,5 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// mnt 29 frebrary 11th
+// mnt 42 frebrary 12 th handleInputChange
 reportWebVitals();
