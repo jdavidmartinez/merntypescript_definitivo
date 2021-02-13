@@ -1,15 +1,25 @@
-import React, {useState} from 'react'
+import React, {FormEvent, useState} from 'react'
+import { ChangeEvent } from 'react';
 import { Video } from "./Video";
+
+type InputChange =  ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 
 export const VideoForm = () => {
 
-    const [video, setVideo] = useState<Video>({title:"", description:"", url:""})
 
-    //const handleInputChange = (e: any) => {
-      //  setVideo()
+    const [video, setVideo] = useState<Video>({
+        title:"", 
+        description:"",
+        url:""})
 
-    //}
-
+    const handleInputChange = (e: InputChange) => {
+        setVideo({...video, [e.target.value]: e.target.value })
+ 
+    }
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+       e.preventDefault(); 
+       console.log(video)
+    }
     return (
         <div className="row">
             <div className="col-md-4 offset-md-4">
@@ -17,12 +27,13 @@ export const VideoForm = () => {
                     <div className="card body">
                         <h3>New Video</h3>
 
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="form-group">
                             <input type="text" 
                             name="title" 
                             placeholder="Write a title for this video"
                             className="form-control"
+                            onChange= {handleInputChange}
                             autoFocus/>
                             </div>
 
@@ -31,14 +42,16 @@ export const VideoForm = () => {
                             name="url" 
                             placeholder="https://somesite.com"
                             className="form-control"
+                            onChange= {handleInputChange}
                             />
                             </div>
 
                             <div className="form-group">
                             <textarea 
-                            name="descirption" 
+                            name="description" 
                             rows={3} className="form-control" 
                             placeholder="Write a description"
+                            onChange= {handleInputChange}
                             ></textarea>
                             </div>
 
