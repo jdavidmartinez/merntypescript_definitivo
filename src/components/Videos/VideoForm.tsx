@@ -1,6 +1,7 @@
 import React, {FormEvent, useState} from 'react'
 import { ChangeEvent } from 'react';
 import { Video } from "./Video";
+import * as videoService from './VideoService';
 
 type InputChange =  ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 
@@ -10,14 +11,17 @@ export const VideoForm = () => {
     const [video, setVideo] = useState<Video>({
         title:"", 
         description:"",
-        url:""})
+        url:"",
+    })
 
     const handleInputChange = (e: InputChange) => {
-        setVideo({...video, [e.target.value]: e.target.value })
+        e.preventDefault();
+        setVideo({...video, [e.target.name]: e.target.value })
  
     }
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
        e.preventDefault(); 
+      // const res = await videoService.createVideo(video)
        console.log(video)
     }
     return (
@@ -29,30 +33,31 @@ export const VideoForm = () => {
 
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                            <input type="text" 
-                            name="title" 
-                            placeholder="Write a title for this video"
-                            className="form-control"
-                            onChange= {handleInputChange}
-                            autoFocus/>
+                                <input type="text" 
+                                name="title" 
+                                placeholder="Write a title for this video"
+                                className="form-control"
+                                onChange= {handleInputChange}
+                                autoFocus/>
                             </div>
 
                             <div className="form-group">
-                            <input type="text" 
-                            name="url" 
-                            placeholder="https://somesite.com"
-                            className="form-control"
-                            onChange= {handleInputChange}
+                                <input type="text" 
+                                name="url" 
+                                placeholder="https://somesite.com"
+                                className="form-control"
+                                onChange= {handleInputChange}
                             />
                             </div>
 
                             <div className="form-group">
-                            <textarea 
-                            name="description" 
-                            rows={3} className="form-control" 
-                            placeholder="Write a description"
-                            onChange= {handleInputChange}
-                            ></textarea>
+                                <textarea 
+                                name="description" 
+                                rows={3} 
+                                className="form-control" 
+                                placeholder="Write a description"
+                                onChange= {handleInputChange}
+                                ></textarea>
                             </div>
 
                             <button className="btn btn-primary">
