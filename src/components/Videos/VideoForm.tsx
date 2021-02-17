@@ -2,11 +2,14 @@ import React, {FormEvent, useState} from 'react'
 import { ChangeEvent } from 'react';
 import { Video } from "./Video";
 import * as videoService from './VideoService';
+import {toast} from 'react-toastify';
+import {useHistory} from 'react-router-dom';
 
 type InputChange =  ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 
 export const VideoForm = () => {
 
+    const history = useHistory()
 
     const [video, setVideo] = useState<Video>({
         title:"", 
@@ -15,14 +18,15 @@ export const VideoForm = () => {
     })
 
     const handleInputChange = (e: InputChange) => {
-        e.preventDefault();
         setVideo({...video, [e.target.name]: e.target.value })
  
     }
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
        e.preventDefault(); 
-      // const res = await videoService.createVideo(video)
-       console.log(video)
+       const res = await videoService.createVideo(video)
+       toast.success('New Video added')
+       history.push('/')
+       console.log(res)
     }
     return (
         <div className="row">

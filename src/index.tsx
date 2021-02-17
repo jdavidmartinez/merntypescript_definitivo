@@ -4,10 +4,12 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {ToastContainer } from 'react-toastify'
 import VideoList from './components/Videos/VideoList';
 import VideoForm from './components/Videos/VideoForm';
 
 import './index.css';
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootswatch/dist/pulse/bootstrap.min.css'
 
 
@@ -23,6 +25,7 @@ ReactDOM.render(
         <Route exact path="/" component ={VideoList}/>
         <Route path="/new-video" component ={VideoForm}/>
       </Switch>
+      <ToastContainer />
       </div>
     </BrowserRouter>
   </React.StrictMode>,
