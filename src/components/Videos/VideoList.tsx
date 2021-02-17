@@ -17,7 +17,7 @@ const [videos, setVideos] = useState<Video[]>([])
         }, [])
        
     return (
-        <div>
+        <div className= "row">
             {videos.map((video) => {
                 return <VideoItem  video={video}/>
                
