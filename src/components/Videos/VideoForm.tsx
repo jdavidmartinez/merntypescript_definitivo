@@ -3,13 +3,19 @@ import { ChangeEvent } from 'react';
 import { Video } from "./Video";
 import * as videoService from './VideoService';
 import {toast} from 'react-toastify';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 type InputChange =  ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 
+interface Params {
+    id: string;
+}
+
 export const VideoForm = () => {
 
-    const history = useHistory()
+    const history = useHistory();
+    const params = useParams<Params>();
+    console.log(params)
 
     const [video, setVideo] = useState<Video>({
         title:"", 
@@ -63,10 +69,17 @@ export const VideoForm = () => {
                                 onChange= {handleInputChange}
                                 ></textarea>
                             </div>
-
-                            <button className="btn btn-primary">
-                                Create Video
+                                {
+                                    params.id?
+                                <button className="btn btn-info">
+                                Update Video
+                                </button>
+                                :
+                                <button className="btn btn-primary">
+                                 Create Video
                             </button>
+                                }
+                            
                         </form>
                     </div>
                 </div>

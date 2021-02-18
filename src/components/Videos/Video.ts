@@ -4,7 +4,7 @@ export interface Video {
     description: string
     url: string
     _id?: string
-    updatedAt?: string
-    createdAt?: string
+    updatedAt?: string | Date
+    createdAt?: string | Date
 }
    
