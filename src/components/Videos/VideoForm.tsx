@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react'
+import React, {FormEvent, useState, useEffect} from 'react'
 import { ChangeEvent } from 'react';
 import { Video } from "./Video";
 import * as videoService from './VideoService';
@@ -34,12 +34,33 @@ export const VideoForm = () => {
        history.push('/')
        console.log(res)
     }
+
+    const getVideo = async (id:string) => {
+       const res =  await videoService.getVideo(id)
+       const {title, description, url} = res.data;
+       setVideo({title, description, url})
+    }
+    useEffect(() => {
+        if (params.id) getVideo(params.id);
+        
+    }, [])
+
     return (
         <div className="row">
             <div className="col-md-4 offset-md-4">
                 <div className="card">
                     <div className="card body">
-                        <h3>New Video</h3>
+                    {
+                                    params.id?
+                                
+                               <h3>Update Video</h3>
+                                :
+                               <h3>Create Video</h3>
+                            
+                                }
+                        
+                        
+                        
 
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">

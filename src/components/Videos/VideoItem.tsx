@@ -14,7 +14,7 @@ const VideoItem = ({video}: Props) => {
 
     return (
     <div className= "col-md-4">
-        <div className="card card-body video-card"
+        <div className="card card-body video-card padding: 20px"
          style={{cursor: 'pointer'}} 
          onClick={() => history.push(`/update/${video._id}`)}
         >
