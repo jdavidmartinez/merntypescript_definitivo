@@ -17,22 +17,31 @@ export const VideoForm = () => {
     const params = useParams<Params>();
     //console.log(params)
 
-    const [video, setVideo] = useState<Video>({
-        title:"", 
-        description:"",
-        url:"",
-    })
-
+    const initialState = {
+        title: "",
+        description: "",
+        url: "",
+      };
+    
+      const [video, setVideo] = useState<Video>(initialState);
+    
     const handleInputChange = (e: InputChange) => {
         setVideo({...video, [e.target.name]: e.target.value })
  
     }
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
        e.preventDefault(); 
-       const res = await videoService.createVideo(video)
-       toast.success('New Video added')
+
+       if(!params.id){
+        await videoService.createVideo(video)
+        toast.success('New Video added')
+        setVideo(initialState)
+       } else{
+           await videoService.updateVideo(params.id, video)
+       }
+       
        history.push('/')
-       //console.log(res)
+     
     }
 
     const getVideo = async (id:string) => {
@@ -69,8 +78,10 @@ export const VideoForm = () => {
                                 name="title" 
                                 placeholder="Write a title for this video"
                                 className="form-control"
+                                autoFocus
                                 onChange= {handleInputChange}
-                                autoFocus/>
+                                value ={video.title}
+                                />
                             </div>
 
                             <div className="form-group">
@@ -79,6 +90,7 @@ export const VideoForm = () => {
                                 placeholder="https://somesite.com"
                                 className="form-control"
                                 onChange= {handleInputChange}
+                                value= {video.url}
                             />
                             </div>
 
@@ -89,6 +101,7 @@ export const VideoForm = () => {
                                 className="form-control" 
                                 placeholder="Write a description"
                                 onChange= {handleInputChange}
+                                value= {video.description}
                                 ></textarea>
                             </div>
                                 {
