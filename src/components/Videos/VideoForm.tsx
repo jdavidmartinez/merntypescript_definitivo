@@ -15,7 +15,7 @@ export const VideoForm = () => {
 
     const history = useHistory();
     const params = useParams<Params>();
-    console.log(params)
+    //console.log(params)
 
     const [video, setVideo] = useState<Video>({
         title:"", 
@@ -32,13 +32,14 @@ export const VideoForm = () => {
        const res = await videoService.createVideo(video)
        toast.success('New Video added')
        history.push('/')
-       console.log(res)
+       //console.log(res)
     }
 
     const getVideo = async (id:string) => {
        const res =  await videoService.getVideo(id)
        const {title, description, url} = res.data;
        setVideo({title, description, url})
+       console.log(title, url)
     }
     useEffect(() => {
         if (params.id) getVideo(params.id);
